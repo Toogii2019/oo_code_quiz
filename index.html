@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="static/js/questions.js"></script>
+    <script src="static/js/quiz_dom.js"></script>
+    <script src="static/js/quiz_obj.js"></script>
+
+    <title>Javascript knowledge test</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <nav>
+              <ul id="quiz-types">
+                <li>HTML Quiz</li>
+                <li>JS Quiz</li>
+                <li>CSS Quiz</li>
+              </ul>
+            </nav>
+        </header>
+        <section class="body-section">
+            <div class="card text-center quiz-board">
+                <div class="card-header">
+                  Time Remaining: <span id="time"></span>
+                </div>
+                <div class="card-body">
+                  <!-- <div class="quiz"></div>
+                  <div class="answers"></div> -->
+                </div>
+                <div class="card-footer text-muted quiz-board-footer">
+                  Total Score:<span id="score">0</span>
+                  <button id="start-next-finish" class="btn btn-success">Start Quiz</button>
+                </div>
+            </div>
+            <div class="card text-center score-board">
+                <div class="card-header">
+                  Score Board for
+                  <select id="score-board-type">
+                    <option value="Javascript">Javascript</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                  </select>
+                </div>
+                <div class="card-body player-info">
+                  <div>
+
+                    <div><b>User Initial:</b> <span id="scoreboard-initial"></span></div>
+                    <div><b>Date:</b> <span id="scoreboard-date"></span></div>
+                    <div><b>Highest Score:</b> <span id="scoreboard-score"></span></div>
+
+                  </div>
+                  <h5 class="card-title"></h5>
+                  <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+                  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                </div>
+                <div class="card-footer text-muted">
+                  Knowledge Is Power
+                </div>
+              </div>
+            <div class="ads-box">
+                <div>ads1</div>
+                <div>ads2</div>
+                <div>ads3</div>
+            </div>
+        </section>
+        <footer>
+            Toogii &copy 2020
+        </footer>
+        <script src="static/js/script.js"></script>
+    </div>
+</body>
+</html>
