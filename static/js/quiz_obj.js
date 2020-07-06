@@ -1,20 +1,21 @@
 function newQuizObj(quizName, toTalTime, myQuestions) {
     var quizObj = new Object();
     quizObj.name = quizName;
-    quizObj.total_time = toTalTime;
     quizObj.number_of_questions = myQuestions.length;
     quizObj.index = 0;
     quizObj.question_array = myQuestions;
     quizObj.current_score = 0;
-    quizObj.timer = 0;
+    quizObj.totalScore = 0;
     quizObj.endCalled = false;
     quizObj.playerName = "Anonymous";
     quizObj.highest_score = 0;
-    quizObj.timerStop = false;
     quizObj.timeRemaining = myQuestions.length*15;
+    quizObj.timerStatus = false;
 
     quizObj.run = function() {
-
+        if (!this.timerStatus) {
+            this.timer_start();
+        }
 
         if (this.index === 0) {
             this.startQuiz();
@@ -31,8 +32,8 @@ function newQuizObj(quizName, toTalTime, myQuestions) {
     }
     
     quizObj.startQuiz = function() {
-        childDomObjArray = [{div: {class:"question-header", textContent: `Question ${this.index+1} out of ${this.number_of_questions}`}}, 
-        {div: {class: "question", textContent: this.question_array[this.index].title}}, {div: {class: "answers"}}];
+        childDomObjArray = [{h3: {class:"question-header", textContent: `Question ${this.index+1} out of ${this.number_of_questions}`}}, 
+        {p: {class: "question", textContent: this.question_array[this.index].title}}, {div: {class: "answers"}}];
         QuizButton.textContent = "Next";
         resetDom(parentDomObj);
         quizDomCreate(parentDomObj, childDomObjArray); 
@@ -55,8 +56,10 @@ function newQuizObj(quizName, toTalTime, myQuestions) {
     quizObj.endQuiz = function() {
         resetDom(parentDomObj);
         this.endCalled = true;
+        clearInterval(timerInterval);
         QuizButton.textContent = "End Quiz";
-        childDomObjArray = [{input: {class: "center", id:"initials-input", placeholder: "Your Initials"}}, {div: {type: "number", textContent: `Your Quiz Score:  ${this.current_score}`}}, {div: {type: "number", textContent: `Time left: ${this.timer}`}}, {div: {type: "number", textContent: `Your Total Score ${this.current_score + this.timer/10}`}}];
+        childDomObjArray = [{input: {class: "center", id:"initials-input", placeholder: "Your Initials"}}, {div: {type: "number", textContent: `Your Quiz Score:  ${this.current_score}`}}, {div: {type: "number", textContent: `Time left: ${countDown}`}}, {div: {type: "number", textContent: `Your Total Score ${this.current_score + countDown/10}`}}];
+        timeEl.textContent = countDown;
         quizDomCreate(parentDomObj, childDomObjArray); 
         
     }
@@ -103,11 +106,12 @@ function newQuizObj(quizName, toTalTime, myQuestions) {
     }
 
     quizObj.applyPenalty = function() {
-        if (this.timer >= 15) {
-            this.timer -= 15;
+        if (countDown >= 15) {
+            countDown -= 15;
         }
         else {
-            this.timer = 0;
+            countDown = 0;
+
         }
     }
 
@@ -123,14 +127,15 @@ function newQuizObj(quizName, toTalTime, myQuestions) {
         console.log(this.playerName);
         var quizResult = JSON.parse(localStorage.getItem(`${this.name}QuizResult`));
         console.log(quizResult);
+        this.totalScore = this.current_score + countDown/10;
         if (quizResult) {
-            if (quizResult.score < this.current_score) {
+            if (quizResult.score < this.totalScore ) {
                 today = new Date();
 
                 quizResult = {
                     player: this.playerName,
                     date: `${today.toDateString()} ${today.toTimeString().split(" ").slice(0, 1).toLocaleString()}`,
-                    score: this.current_score
+                    score: this.totalScore
                 }
                 localStorage.setItem(`${this.name}QuizResult`, JSON.stringify(quizResult));
                 
@@ -142,7 +147,7 @@ function newQuizObj(quizName, toTalTime, myQuestions) {
             quizResult = {
                 player: this.playerName,
                 date: `${today.toDateString()} ${today.toTimeString().split(" ").slice(0, 1).toLocaleString()}`,
-                score: this.current_score
+                score: this.totalScore
             }
             localStorage.setItem(`${this.name}QuizResult`, JSON.stringify(quizResult));
             
@@ -159,11 +164,16 @@ function newQuizObj(quizName, toTalTime, myQuestions) {
 
     }
     quizObj.timer_start = function() {
-        console.log(this.timeRemaining);
+        console.log(countDown);
+        this.timerStatus = true;
         timerInterval = setInterval(function() {
-            console.log(this.timeRemaining);
-            this.timeRemaining--;
-            timeEl.textContent = this.timeRemaining;       
+            console.log(countDown);
+            countDown--;
+            if (countDown === 0) {
+                clearInterval(timerInterval);
+                quizObj.endQuiz();
+            }
+            timeEl.textContent = countDown;       
         }, 1000);
     }
     return quizObj;

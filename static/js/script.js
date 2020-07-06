@@ -11,15 +11,18 @@ function quizLandingPage(quizName, numberOfQuesions, toTalTime) {
   timeEl.textContent = toTalTime;
   scoreEl.textContent = 0;
   scoreBoardName.value = quizName;
+  
   quizObj = null;
+
+  clearInterval(timerInterval);
+  countDown = myQuestions.length*15;
   resetDom(parentDomObj);
   updateScoreBoard(quizName);
-  var childDomObjArray = [{div: {class: "quiz-type", textContent: quizName}}, {div: {class: "number-of-questions", textContent: numberOfQuesions}}, {div: {class: "total-time", textContent: toTalTime}}];
+  var childDomObjArray = [{h3: {class: "quiz-type", textContent: quizName}}, {h5: {class: "number-of-questions", textContent: `Number of Questions: ${numberOfQuesions}`}}, {h5: {class: "total-time", textContent: `Time: ${toTalTime} seconds`}}];
   landingPageDomArray = quizDomCreate(parentDomObj, childDomObjArray);
 }
-
+var timerInterval;
 var defaultResult = {player: "Anonymous", date: "1999-01-01", score: 0};
-
 var nameOnScoreBoard = document.getElementById("scoreboard-initial");
 var dateOnScoreBoard = document.getElementById("scoreboard-date");
 var highestScoreOnScoreBoard = document.getElementById("scoreboard-score");
@@ -31,7 +34,7 @@ var scoreBoardName = document.getElementById("score-board-type");
 var quizName = "Javascript";
 var myQuestions = jsQuestions;
 var numberOfQuesions = myQuestions.length;
-var toTalTime = numberOfQuesions*15
+var toTalTime = numberOfQuesions*15;
 
 quizLandingPage(quizName, numberOfQuesions, toTalTime);
 
@@ -39,6 +42,7 @@ var quizTypeEl = document.getElementById("quiz-types");
 
 quizTypeEl.addEventListener("click", function (event) {
   var element = event.target;
+  QuizButton.textContent = "Start Quiz";
   if (element.matches("li")) {
     switch(element.textContent.split(" ")[0]) {
       case "HTML":
@@ -70,6 +74,7 @@ quizTypeEl.addEventListener("click", function (event) {
 })
 
 function playQuiz(event) {
+  console.log(quizObj);
   if (!quizObj) {
     quizObj = newQuizObj(quizName, toTalTime, myQuestions);
     quizObj.run();
@@ -86,7 +91,7 @@ function playQuiz(event) {
 
 }
 
-var quizObj;
+var quizObj = null;
 var QuizButton = document.getElementById("start-next-finish");
 
 QuizButton.addEventListener("click", playQuiz); 
