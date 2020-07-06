@@ -25,7 +25,6 @@ var dateOnScoreBoard = document.getElementById("scoreboard-date");
 var highestScoreOnScoreBoard = document.getElementById("scoreboard-score");
 
 var parentDomObj = document.getElementsByClassName("card-body")[0]; 
-var landingPageDomArray;
 var timeEl = document.getElementById("time");
 var scoreEl = document.getElementById("score");
 var scoreBoardName = document.getElementById("score-board-type");
@@ -35,7 +34,6 @@ var numberOfQuesions = myQuestions.length;
 var toTalTime = numberOfQuesions*15
 
 quizLandingPage(quizName, numberOfQuesions, toTalTime);
-
 
 var quizTypeEl = document.getElementById("quiz-types");
 

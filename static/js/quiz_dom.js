@@ -18,7 +18,6 @@ function quizDomCreate(parentDomObj, childDomObjArray) {
             }
             else if (attrName === "placeholder") {
                 newEl.placeholder = childDomObj[elName][attrName];
-
             }
             else if (attrName === "type") {
                 newEl.type = childDomObj[elName][attrName];
