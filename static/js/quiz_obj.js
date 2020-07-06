@@ -33,7 +33,7 @@ function newQuizObj(quizName, toTalTime, myQuestions) {
     
     quizObj.startQuiz = function() {
         childDomObjArray = [{h3: {class:"question-header", textContent: `Question ${this.index+1} out of ${this.number_of_questions}`}}, 
-        {p: {class: "question", textContent: this.question_array[this.index].title}}, {div: {class: "answers"}}];
+        {p: {class: "question", innerHTML: `<strong>${this.question_array[this.index].title}</strong>`}}, {div: {class: "answers"}}];
         QuizButton.textContent = "Next";
         resetDom(parentDomObj);
         quizDomCreate(parentDomObj, childDomObjArray); 
@@ -46,7 +46,7 @@ function newQuizObj(quizName, toTalTime, myQuestions) {
         var questionField = document.getElementsByClassName("question")[0];
         
         questionHeaderField.textContent = `Question ${this.index+1} out of ${this.number_of_questions}`;
-        questionField.textContent = this.question_array[this.index].title;
+        questionField.innerHTML = `<strong>${this.question_array[this.index].title}</strong>`;
         // answerField.textContent = this.question_array[this.index].choices;
         this.displayAnswers();
 
