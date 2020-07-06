@@ -1,38 +1,49 @@
+function updateScoreBoard(currentQuizName) {
+  var quizResult = JSON.parse(localStorage.getItem(`${currentQuizName}QuizResult`));
+  if (quizResult) {
+    nameOnScoreBoard.textContent = quizResult.player;
+    dateOnScoreBoard.textContent = quizResult.date;
+    highestScoreOnScoreBoard.textContent = quizResult.score;
+  }
+}
+
 function quizLandingPage(quizName, numberOfQuesions, toTalTime) {
-  questionIndex = 0;
   timeEl.textContent = toTalTime;
   scoreBoardName.value = quizName;
   resetDom(parentDomObj);
+  updateScoreBoard(quizName);
   var childDomObjArray = [{div: {class: "quiz-type", textContent: quizName}}, {div: {class: "number-of-questions", textContent: numberOfQuesions}}, {div: {class: "total-time", textContent: toTalTime}}];
   landingPageDomArray = quizDomCreate(parentDomObj, childDomObjArray);
 }
 
+var defaultResult = {player: "Anonymous", date: "1999-01-01", score: 0};
+
+var nameOnScoreBoard = document.getElementById("scoreboard-initial");
+var dateOnScoreBoard = document.getElementById("scoreboard-date");
+var highestScoreOnScoreBoard = document.getElementById("scoreboard-score");
 
 var parentDomObj = document.getElementsByClassName("card-body")[0]; 
-
 var landingPageDomArray;
-var questionIndex = 0;
 var timeEl = document.getElementById("time");
+var scoreEl = document.getElementById("score");
 var scoreBoardName = document.getElementById("score-board-type");
 var quizName = "Javascript";
-myQuestions = jsQuestions;
-numberOfQuesions = myQuestions.length;
-toTalTime = numberOfQuesions*15
+var myQuestions = jsQuestions;
+var numberOfQuesions = myQuestions.length;
+var toTalTime = numberOfQuesions*15
 
 quizLandingPage(quizName, numberOfQuesions, toTalTime);
+
 
 var quizTypeEl = document.getElementById("quiz-types");
 
 quizTypeEl.addEventListener("click", function (event) {
   var element = event.target;
-  index = 0;
-  currentScore = 0;
   if (element.matches("li")) {
     switch(element.textContent.split(" ")[0]) {
       case "HTML":
         myQuestions = htmlQuestions;
         numberOfQuesions = myQuestions.length;
-        console.log(myQuestions);
         toTalTime = numberOfQuesions*15
         quizName = "HTML";
         quizLandingPage(quizName, numberOfQuesions, toTalTime);
@@ -61,13 +72,16 @@ quizTypeEl.addEventListener("click", function (event) {
 function playQuiz(event) {
   if (!quizObj) {
     quizObj = newQuizObj(quizName, toTalTime, myQuestions);
-    console.log(quizObj.name);
     quizObj.run();
   } 
   else {
+    if (quizObj.endCalled) {
+      quizObj.submitScore();
+      return;
+    }
     quizObj.index ++;
     quizObj.run();
-    console.log("Already started" + quizObj.index);
+    scoreEl.textContent = quizObj.current_score;
   }
 
 }
@@ -78,4 +92,7 @@ var QuizButton = document.getElementById("start-next-finish");
 QuizButton.addEventListener("click", playQuiz); 
 
 
-
+var scoreTypeButton = document.getElementById("score-board-type");
+scoreTypeButton.addEventListener("change", function(event) {
+  updateScoreBoard(event.target.value);
+})

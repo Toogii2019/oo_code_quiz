@@ -6,7 +6,6 @@ function quizDomCreate(parentDomObj, childDomObjArray) {
         elName = Object.keys(childDomObj)[0];
         var newEl = document.createElement(elName);
         attrNameArray = Object.keys(childDomObj[elName]);
-        console.log(attrNameArray);
         attrNameArray.forEach(function(attrName, i) {
             if (attrName === "textContent" ) {
                 newEl.textContent = childDomObj[elName][attrName];
@@ -24,6 +23,15 @@ function quizDomCreate(parentDomObj, childDomObjArray) {
             else if (attrName === "type") {
                 newEl.type = childDomObj[elName][attrName];
             }
+            else if (attrName === "for") {
+                newEl.for = childDomObj[elName][attrName];
+            }
+            else if (attrName === "name") {
+                newEl.name = childDomObj[elName][attrName];
+            }
+            else if (attrName === "value") {
+                newEl.value = childDomObj[elName][attrName];
+            }
             else {
             newEl.setAttribute(attrName, childDomObj[elName][attrName]);
             }
@@ -31,7 +39,6 @@ function quizDomCreate(parentDomObj, childDomObjArray) {
         }
         )
         newChildDomElArray.push(newEl);
-        console.log(newEl);
         parentDomObj.appendChild(newEl);
     })
     return newChildDomElArray;

@@ -1,12 +1,13 @@
 :root {
     --primary: #ddd;
-    --dark: rgb(68, 61, 61);
+    --dark: rgb(116, 106, 106);
     --light: rgb(243, 234, 234);
     --light-blue: rgb(169, 222, 222);
     --black: rgb(74, 82, 82);
     --shadow: 0 1px 5px rgba(104,104,104, 0.8);
     --title-color: rgb(135, 125, 116);
     --light-dark: rgb(223, 215, 215);
+    --question-color:  rgb(248, 217, 190);
 }
 
 body {
@@ -143,7 +144,9 @@ ul {
     align-content: center;
 
 }
-
+.answer-form {
+    background: var(--question-color);
+}
 #quizfrom {
     display: flex;
     flex-direction: column;
