@@ -5,6 +5,11 @@ function updateScoreBoard(currentQuizName) {
     dateOnScoreBoard.textContent = quizResult.date;
     highestScoreOnScoreBoard.textContent = quizResult.score;
   }
+  else {
+    nameOnScoreBoard.textContent = "No Entry";
+    dateOnScoreBoard.textContent = "No Entry";
+    highestScoreOnScoreBoard.textContent = "No Entry";
+  }
 }
 
 function quizLandingPage(quizName, numberOfQuesions, toTalTime) {
@@ -97,7 +102,6 @@ var QuizButton = document.getElementById("start-next-finish");
 QuizButton.addEventListener("click", playQuiz); 
 
 
-var scoreTypeButton = document.getElementById("score-board-type");
-scoreTypeButton.addEventListener("change", function(event) {
+scoreBoardName.addEventListener("change", function(event) {
   updateScoreBoard(event.target.value);
 })
