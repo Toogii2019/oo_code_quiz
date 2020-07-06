@@ -9,7 +9,9 @@ function updateScoreBoard(currentQuizName) {
 
 function quizLandingPage(quizName, numberOfQuesions, toTalTime) {
   timeEl.textContent = toTalTime;
+  scoreEl.textContent = 0;
   scoreBoardName.value = quizName;
+  quizObj = null;
   resetDom(parentDomObj);
   updateScoreBoard(quizName);
   var childDomObjArray = [{div: {class: "quiz-type", textContent: quizName}}, {div: {class: "number-of-questions", textContent: numberOfQuesions}}, {div: {class: "total-time", textContent: toTalTime}}];
