@@ -10,9 +10,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="static/js/questions.js"></script>
-    <script src="static/js/quiz_dom.js"></script>
-    <script src="static/js/quiz_obj.js"></script>
-
     <title>Javascript knowledge test</title>
 </head>
 <body>
@@ -32,8 +29,8 @@
                   Time Remaining: <span id="time"></span>
                 </div>
                 <div class="card-body">
-                  <!-- <div class="quiz"></div>
-                  <div class="answers"></div> -->
+                  <div id="quiz"></div>
+                  <div id="answers"></div>
                 </div>
                 <div class="card-footer text-muted quiz-board-footer">
                   Total Score:<span id="score">0</span>
@@ -42,8 +39,8 @@
             </div>
             <div class="card text-center score-board">
                 <div class="card-header">
-                  Score Board for
-                  <select id="score-board-type">
+                  Score Board for <span id="quiz-name"></span> 
+                  <select id="quiztype">
                     <option value="Javascript">Javascript</option>
                     <option value="HTML">HTML</option>
                     <option value="CSS">CSS</option>
